@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7286963467349240733}
   - component: {fileID: 7622623341491570117}
   - component: {fileID: 7290336727061914315}
+  - component: {fileID: 3471008715667691147}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -138,8 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: 0}
-  m_NotificationBehavior: 0
+  m_Actions: {fileID: -944628639613478452, guid: 294ac770a3d06444ba9fcca011f2a759, type: 3}
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -150,12 +151,84 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3471008715667691147}
+        m_TargetAssemblyTypeName: FP_Controller, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6f4122a0-9302-482f-8685-2ef9c65adb79
+    m_ActionName: 'MapaGameplya/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3471008715667691147}
+        m_TargetAssemblyTypeName: FP_Controller, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d87269ce-cc08-4a8c-b75a-bed4d32ada77
+    m_ActionName: 'MapaGameplya/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 58fc003c-06dd-42b4-8350-94aa716fedaf
+    m_ActionName: 'MapaGameplya/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 34c1734a-81b4-4fe9-bb6b-49fc729e5271
+    m_ActionName: 'MapaGameplya/Shoot[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ea7a1f6-6224-4db1-a622-24fc4940bde7
+    m_ActionName: 'MapaGameplya/Reload[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ae9767d-6b20-4314-9758-f5fdf6f0bb35
+    m_ActionName: 'MapaGameplya/Crouch[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a6e93f00-c5f5-47a6-96c3-88463eb8089f
+    m_ActionName: 'MapaGameplya/Sprint[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: MapaGameplya
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3471008715667691147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726830992389805884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca4e6a8a3b152b42b915f248973b78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FP_Controller
+  camHolder: {fileID: 6971207667552614809}
+  speed: 5
+  crouchSpeed: 3
+  sprintSpeed: 8
+  maxForce: 1
+  sensitivity: 0.1
+  isSprinting: 0
+  isCrouching: 0
 --- !u!1 &6971207667552614809
 GameObject:
   m_ObjectHideFlags: 0
