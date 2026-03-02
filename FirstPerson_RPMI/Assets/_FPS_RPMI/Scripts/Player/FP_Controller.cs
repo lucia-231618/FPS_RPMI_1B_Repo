@@ -13,6 +13,13 @@ public class FP_Controller : MonoBehaviour
     [SerializeField] float maxForce = 1f; //Fuerza maxima de aceleración
     [SerializeField] float sensitivity = 0.1f; //Sensibilidad del ratón
 
+    [Header("Jump & Groundcheck")]
+    [SerializeField] float jumpForce = 5f;
+    [SerializeField] bool isGrounded;
+    [SerializeField] float groundCheckRadius = 0.3f;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] Transform groundCheck;
+
     [Header("Player State Bools")]
     [SerializeField] bool isSprinting;
     [SerializeField] bool isCrouching;
@@ -20,6 +27,7 @@ public class FP_Controller : MonoBehaviour
 
     //Variables de autoreferencia
     Rigidbody rb;
+    Animator anim;
 
     //Variables de input
     Vector2 moveInput;
@@ -29,6 +37,7 @@ public class FP_Controller : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        anim= GetComponent<Animator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,7 +52,8 @@ public class FP_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //GroundCheck
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
     private void FixedUpdate()
@@ -84,6 +94,10 @@ public class FP_Controller : MonoBehaviour
         //Aplicación del movimiento (DIRECCIÓN + ACELERACIÓN)
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
+    void Jump()
+    {
+        if (isGrounded) rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
 
     #region Input Method
     public void OnMove(InputAction.CallbackContext context)
@@ -98,17 +112,22 @@ public class FP_Controller : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-
+        if (context.performed) Jump();
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-
+        if (context.performed)
+        {
+            isCrouching = !isCrouching;
+            anim.SetBool("isCrouching", isCrouching);
+        }
     }
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-
+        if (context.performed && !isCrouching) isSprinting = true;
+        if(context.canceled) isSprinting = false;
     }
 }
 #endregion
