@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,8 +21,8 @@ public class GunSystem : MonoBehaviour
 
     [Header("Bullet Management")]
     [SerializeField] int ammoSize = 30; //Cantidad max de ballas por cargador
-    [SerializeField] int bullsPerTap = 1; //Cantidad de ballas disparadas por cada ejecución de disparo
-    int bulletsLeft; //Cantidad de balas dentro del cargador
+    [SerializeField] int bulletsPerTap = 1; //Cantidad de ballas disparadas por cada ejecución de disparo
+    [SerializeField] int bulletsLeft; //Cantidad de balas dentro del cargador
 
     [Header("Feedback References")]
     [SerializeField] GameObject impactEffect; //Ref al VFX de impacto de bala
@@ -42,9 +43,26 @@ public class GunSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (canShoot && shooting && !reloading && bulletsLeft > 0)
+        {
+            //Inicializar el proceso de disparo
+            StartCoroutine(ShootRoutine());
+        }
     }
 
+    IEnumerator ShootRoutine()
+    {
+        canShoot = false;  //Primera capa de seguridad que evita que apilemos disparos
+        if (!allowButtonHold) shooting = false; //Configuración del disparo por tap
+        for (int i = 0; i < bulletsPerTap; i++)
+        {
+            if (bulletsLeft <= 0) break; //Segunda prevención de errores
+            Shoot(); //Disprao en sí = Raycasst que permite daño
+            bulletsLeft--; //Quita una balla del cargador actual
+        }
+        yield return new WaitForSeconds(shootingCooldown);//Ejecución de la espera entre disparos
+        canShoot = true; //Se devuelve la posibilidad de disparar
+    }
     void Shoot()
     {
         //ESTE ES EL METODO MÁS IMPORTANTE
@@ -65,16 +83,45 @@ public class GunSystem : MonoBehaviour
             Debug.Log(hit.collider.name);
         }
     }
-    #region
+
+
+    IEnumerator ReloadRoutine()
+    {
+        reloading = true; //Se activa modo recarga = no se puede stackear la recarga
+        //Aquí iría la llamada a la animación de recarga
+        yield return new WaitForSeconds(reloadTime);
+        bulletsLeft = ammoSize; //Se efectúa la recarga a nivel datos
+        reloading = false;
+    }
+
+    void Reload()
+    {
+        if (bulletsLeft < ammoSize && !reloading)
+        {
+            StartCoroutine(ReloadRoutine());
+        }
+    }
+
+    #region Input Methods
 
     public void OneShoot(InputAction.CallbackContext context)
     {
-        Shoot();
+        //El sistema de input debe comprobar si el disparo es por tap o por mantener
+        if (allowButtonHold)
+        {
+            //Modo mantener ON
+            shooting = context.ReadValueAsButton();
+        }
+        else
+        {
+            //Modo tap ON
+            if (context.performed) shooting = true;
+        }
     }
 
     public void OneReload(InputAction.CallbackContext context)
     {
-
+        if (context.performed) Reload();
     }
 
     #endregion
