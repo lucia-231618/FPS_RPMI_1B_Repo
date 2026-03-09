@@ -81,6 +81,11 @@ public class GunSystem : MonoBehaviour
         {
             //AQUÍ PODEMOS CODEAR TODOS LOS OBJETOS QUE QUIERO PARA LA INTERACCIÓN
             Debug.Log(hit.collider.name);
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                enemyHealth.TakeDamage(damage);
+            }
         }
     }
 
