@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
     private void Awake()
     {
         health = maxHealth; //La vida se pone al max.
-        baseMat = GetComponent<Material>(); //Se referencia el material base
+        baseMat = enemyRend.material; //Se referencia el material base
     }
 
     // Update is called once per frame
