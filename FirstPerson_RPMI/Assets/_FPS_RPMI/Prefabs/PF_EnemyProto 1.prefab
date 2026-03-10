@@ -223,6 +223,8 @@ GameObject:
   - component: {fileID: 7408426166070640531}
   - component: {fileID: 3229088829105703718}
   - component: {fileID: 6037845218654921787}
+  - component: {fileID: 7950180192927404641}
+  - component: {fileID: 244883529414028365}
   m_Layer: 6
   m_Name: EnemyBody
   m_TagString: Enemy
@@ -245,6 +247,7 @@ Transform:
   m_Children:
   - {fileID: 5444255653622484416}
   - {fileID: 243074860017434467}
+  - {fileID: 6807791248671531236}
   m_Father: {fileID: 7450448111687523407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7408426166070640531
@@ -295,7 +298,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &6037845218654921787
 MonoBehaviour:
@@ -314,6 +317,92 @@ MonoBehaviour:
   damageMat: {fileID: 2100000, guid: 801544405b4226541906435f1ae7df73, type: 2}
   deathVfx: {fileID: 4046350669678936053}
   enemyRend: {fileID: 920187080105480083}
+--- !u!195 &7950180192927404641
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459691198911073596}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &244883529414028365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459691198911073596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e026b0184c936c40ab6fc25b3221e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAIBase
+  agent: {fileID: 0}
+  target: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  walkPointRange: 8
+  timeBdetweenAttacks: 1
+  projectile: {fileID: 4159874078057551593, guid: efb8e90c428fd74428df67f168ce105f, type: 3}
+  shootPoint: {fileID: 6807791248671531236}
+  shootSpeedY: 0
+  shootSpeedZ: 10
+  sightRange: 10
+  attackRange: 4
+  targetInSightRange: 0
+  targetInAttackRange: 0
+  stuckCheckTime: 2
+  stuckThreshold: 0.1
+  maxStuckDuration: 3
+--- !u!1 &7667542128893826404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6807791248671531236}
+  m_Layer: 6
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6807791248671531236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667542128893826404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 63963436919059743}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1181116062050755335
 PrefabInstance:
   m_ObjectHideFlags: 0
